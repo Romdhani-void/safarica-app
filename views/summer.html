@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Summer Plan</title>
+    <link rel="stylesheet" href="/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lovers+Quarrel&family=Roboto+Condensed:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="icon" href="../Img/safari logo.png" type="image/x-icon">
+</head>
+<body class="bg-gray-50 font-[sans-serif]">
+
+    <!-- Navbar -->
+    <nav class="p-4 flex items-center justify-around mx-auto bg-white rounded-lg shadow">
+        <a href="/home"><img src="../Img/safari logo.png" alt="SAFARICA" class="w-[120px]"></a>
+        <ul class="flex space-x-9 font-semibold text-gray-700">
+            <li class="hover:text-orange-400"><a href="/about">About us</a></li>
+            <li class="hover:text-orange-400"><a href="/summer">Summer Plan</a></li>
+            <li class="hover:text-orange-400"><a href="/winter">Winter Plan</a></li>
+            <li class="hover:text-orange-400"><a href="/contact">Contact</a></li>
+            <li class="hover:text-orange-400"><a href="/login">Login</a></li>
+        </ul>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="px-3 py-5 bg-neutral-100 lg:py-10">
+        <div class="grid lg:grid-cols-2 items-center justify-items-center gap-5">
+            <div class="order-2 lg:order-1 flex flex-col justify-center items-center">
+                <p id="summerPromoMessage" class="text-4xl font-bold md:text-7xl text-orange-600"></p>
+                <p class="text-2xl font-bold">Starting From €<span id="summerPromoPrice"></span> / night</p>
+                <button class="text-lg md:text-2xl bg-black text-white py-2 px-5 mt-10 hover:bg-zinc-800 font-Roboto font-semibold">
+                    <a href="/booking">BOOK NOW</a>
+                </button>
+            </div>
+            <div class="order-1 lg:order-2">
+                <img class="h-80 w-80 object-cover lg:w-[500px] lg:h-[500px]" src="../Img/sidibou.jpg" alt="Summer Plan">
+            </div>
+        </div>
+    </section>
+
+    <!-- Booking Section -->
+    <div id="bookingContainer" class="relative flex flex-col justify-center items-center border bg-gray-50 mt-10">
+        <img src="../Img/tunis.jpg" alt="Mountain" class="w-full h-[400px] md:h-[600px] lg:h-[900px] object-bottom">  
+    </div>
+
+    <!-- Chairman Section -->
+    <section class="relative isolate overflow-hidden border-b border-t bg-white px-6 py-24 sm:py-32 lg:px-8">
+        <div class="absolute inset-0 -z-10 bg-[radial-gradient(45rem_50rem_at_top,theme(colors.indigo.100),white)] opacity-20"></div>
+        <div class="absolute inset-y-0 right-1/2 -z-10 mr-16 w-[200%] origin-bottom-left skew-x-[-30deg] bg-white shadow-xl shadow-indigo-600/10 ring-1 ring-indigo-50 sm:mr-28 lg:mr-0 xl:mr-16 xl:origin-center"></div>
+        <div class="mx-auto max-w-2xl lg:max-w-4xl text-center">
+            <img class="mx-auto h-24 grayscale" src="../Img/safari logo.png" alt="SAFARICA Logo">
+            <blockquote class="mt-10 text-xl font-semibold leading-8 text-gray-900 sm:text-2xl sm:leading-9">
+                <p>“Discover the wonders of Tunisia with SAFARICA, where personalized travel experiences are our passion.”</p>
+            </blockquote>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white text-center py-4 mt-10">
+        <p>&copy; 2025 SAFARICA. All rights reserved.</p>
+    </footer>
+
+    <!-- JavaScript to Fetch Summer Promo Data -->
+    <script>
+        async function loadPromo() {
+            try {
+                const response = await fetch("/api/promos");
+                const promos = await response.json();
+
+                // Find Summer promo
+                const summerPromo = promos.find(promo => promo.name.toLowerCase() === "summer");
+
+                if (summerPromo) {
+                    document.getElementById("summerPromoMessage").innerText = summerPromo.message;
+                    document.getElementById("summerPromoPrice").innerText = summerPromo.price;
+                } else {
+                    // If no promo exists, display the default plan
+                    document.getElementById("summerPromoMessage").innerText = "Enjoy a premium summer vacation.";
+                    document.getElementById("summerPromoPrice").innerText = "250"; // Standard price per night
+                }
+            } catch (error) {
+                console.error("Error fetching promo data:", error);
+            }
+        }
+
+        loadPromo();
+    </script>
+
+</body>
+</html>

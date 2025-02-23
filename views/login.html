@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/style.css"> <!-- Tailwind compiled CSS -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lovers+Quarrel&family=Roboto+Condensed:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="icon" href="../Img/safari logo.png" type="image/x-icon">
+    <title>SAFARICA</title>
+</head>
+<body class="bg-gray-50 font-[sans-serif]">
+
+    <!-- Navbar -->
+    <nav class="p-4 flex items-center justify-around mx-auto bg-white rounded-lg shadow sticky top-0 z-50">
+        <a href="/home"><img src="../Img/safari logo.png" alt="SAFARICA" class="w-[120px]"></a>
+        <ul class="flex space-x-9 font-semibold text-gray-700">
+            <li class="hover:text-orange-400"><a href="/about">About us</a></li>
+            <li class="hover:text-orange-400"><a href="/summer">Summer Plan</a></li>
+            <li class="hover:text-orange-400"><a href="/winter">Winter Plan</a></li>
+            <li class="hover:text-orange-400"><a href="/contact">Contact</a></li>
+            <li class="hover:text-orange-400"><a href="/login">Login</a></li>
+        </ul>
+    </nav>
+    
+    
+    
+
+    <!-- Login Section -->
+    <div class="bg-gray-50 min-h-screen flex flex-col items-center justify-center py-6 px-4">
+        <div class="max-w-md w-full">
+            <a href="#">
+                <img src="Img/safari logo.png" alt="logo" class="hidden w-40 mb-8 mx-auto lg:block" />
+            </a>
+            <div class="p-8 rounded-2xl bg-white shadow">
+                <h2 class="text-gray-800 text-center text-2xl font-bold">Admin Login</h2>
+                <form action="/login" method="POST" class="mt-8 space-y-4">
+                    <!-- Email -->
+                    <div>
+                        <label for="email" class="text-gray-800 text-sm mb-2 block">Email</label>
+                        <div class="relative flex items-center">
+                            <input id="email" name="email" type="email" required
+                                   class="w-full text-gray-800 text-sm border border-gray-300 px-4 py-3 rounded-md outline-yellow-600"
+                                   placeholder="Enter your email">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="#bbb" stroke="#bbb" class="w-4 h-4 absolute right-4" viewBox="0 0 24 24">
+                                <circle cx="10" cy="7" r="6"></circle>
+                                <path d="M14 15H6a5 5 0 0 0-5 5 3 3 0 0 0 3 3h12a3 3 0 0 0 3-3 5 5 0 0 0-5-5z"></path>
+                            </svg>
+                        </div>
+                    </div>
+                    <!-- Password -->
+                    <div>
+                        <label for="password" class="text-gray-800 text-sm mb-2 block">Password</label>
+                        <div class="relative flex items-center">
+                            <input id="password" name="password" type="password" required
+                                   class="w-full text-gray-800 text-sm border border-gray-300 px-4 py-3 rounded-md outline-yellow-600"
+                                   placeholder="Enter your password">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="#bbb" stroke="#bbb" class="w-4 h-4 absolute right-4 cursor-pointer" viewBox="0 0 128 128">
+                                <path d="M64 104C22.127 104 1.367 67.496.504 65.943a4 4 0 0 1 0-3.887C1.367 60.504 22.127 24 64 24s62.633 36.504 63.496 38.057a4 4 0 0 1 0 3.887C126.633 67.496 105.873 104 64 104z"></path>
+                                <path d="M64 88c-13.234 0-24-10.766-24-24s10.766-24 24-24 24 10.766 24 24-10.766 24-24 24zm0-40c-8.822 0-16 7.178-16 16s7.178 16 16 16 16-7.178 16-16-7.178-16-16-16z"></path>
+                            </svg>
+                        </div>
+                    </div>
+                    <!-- Submit Button -->
+                    <div class="mt-4 text-center">
+                        <button 
+                            type="submit" 
+                            class="w-full px-4 py-3 bg-yellow-700 text-black text-sm font-semibold rounded-md shadow-lg transition-transform duration-300 hover:bg-yellow-500 hover:scale-105">
+                            Login
+                        </button>
+                    </div>
+                    
+                </form>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

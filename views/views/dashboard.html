@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/style.css"> <!-- Tailwind CSS -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> <!-- Load Chart.js -->
+    <title>Admin Dashboard</title>
+</head>
+
+<body class="bg-gray-200">
+    <div class="flex h-screen">
+        <!-- Sidebar -->
+        <div class="w-64 bg-white shadow-lg">
+            <div class="flex items-center justify-center mt-8">
+                <img src="/Img/safari logo.png" width="75px" alt="SAFARICA Logo">
+                <span class="mx-2 text-2xl font-semibold text-gray-800">Dashboard</span>
+            </div>
+            <nav class="mt-10">
+                <a href="/dashboard" class="flex items-center px-6 py-3 text-white bg-gray-700 rounded transition">
+                    <span class="mx-3">Admin Dashboard</span>
+                </a>
+                <a href="/manageMyCustomer" class="flex items-center px-6 py-3 text-gray-800 hover:bg-indigo-600 hover:text-white rounded transition">
+                    <span class="mx-3">Manage Customers</span>
+                </a>
+                <a href="/manageMyGroup" class="flex items-center px-6 py-3 text-gray-800 hover:bg-green-600 hover:text-white rounded transition">
+                    <span class="mx-3">Manage Group</span>
+                </a>
+                <a href="/managePromos" class="flex items-center px-6 py-3 text-gray-800 hover:bg-yellow-600 hover:text-white rounded transition">
+                    <span class="mx-3">Manage Promos</span>
+                </a>
+            </nav>
+        </div>
+
+        <!-- Main Content -->
+        <div class="flex flex-col flex-1 overflow-hidden">
+            <!-- Header -->
+            <header class="flex items-center justify-between px-6 py-4 bg-white border-b-4 border-indigo-600">
+                <h1 class="text-2xl font-semibold text-gray-800">Admin Dashboard</h1>
+                <button onclick="location.href='/logout'"
+                    class="bg-red-500 text-white px-4 py-2 rounded-lg shadow hover:bg-red-600 transition">
+                    Logout
+                </button>
+            </header>
+
+            <!-- Dashboard Content -->
+            <main class="flex-1 overflow-x-hidden overflow-y-auto p-6">
+                <h2 class="text-3xl font-semibold text-gray-700 mb-6">Dashboard Overview</h2>
+
+                <!-- Chart Section -->
+                <div class="bg-white p-6 rounded-lg shadow-lg">
+                    <h3 class="text-xl font-semibold text-gray-700 mb-4">Booking Statistics</h3>
+                    <div class="flex justify-center">
+                        <canvas id="bookingChart" style="max-width: 500px; max-height: 300px;"></canvas>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <script>
+        async function loadDashboardStats() {
+            try {
+                const response = await fetch('/api/dashboard-stats');
+                const data = await response.json();
+
+                const ctx = document.getElementById('bookingChart').getContext('2d');
+                new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: ['Total Bookings', 'Confirmed Bookings'],
+                        datasets: [{
+                            label: 'Number of Bookings',
+                            data: [data.totalBookings, data.confirmedBookings],
+                            backgroundColor: ['#3498db', '#2ecc71'],
+                            borderColor: ['#2980b9', '#27ae60'],
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        scales: {
+                            y: {
+                                beginAtZero: true
+                            }
+                        }
+                    }
+                });
+
+            } catch (error) {
+                console.error('Error loading dashboard stats:', error);
+            }
+        }
+
+        // Load data when page loads
+        loadDashboardStats();
+    </script>
+</body>
+</html>

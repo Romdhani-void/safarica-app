@@ -1,0 +1,66 @@
+<header class="site-header" [class.site-header--hidden]="hidden">
+  <nav
+    class="nav"
+    [class.nav--over-hero]="overHero && !open"
+    [class.nav--glass]="!overHero"
+    aria-label="Primary"
+  >
+    <div class="wrap">
+      <div class="row">
+        <!-- Brand -->
+        <a routerLink="/" aria-label="Safarica home" class="brand">
+          <img src="assets/img/safari-logo.png" alt="Safarica" class="logo"  />
+        </a>
+
+        <!-- Center links (desktop) -->
+        <ul class="menu" role="menubar" (keydown)="onMenuKeys($event)">
+          <li role="none">
+            <a class="link" routerLink="/" [routerLinkActiveOptions]="{ exact: true }" routerLinkActive="active" role="menuitem">Home</a>
+          </li>
+          <li role="none">
+            <a class="link" routerLink="/summer" role="menuitem">Destinations</a>
+          </li>
+          <li role="none">
+            <a class="link" routerLink="/about" role="menuitem">About</a>
+          </li>
+          <li role="none">
+            <a class="link" routerLink="/contact" role="menuitem">Contact</a>
+          </li>
+        </ul>
+
+        <!-- Right (desktop) -->
+        <div class="actions">
+          <a routerLink="/booking" class="btn-solid">Sign In</a>
+        </div>
+
+        <!-- Mobile toggle -->
+        <button
+          type="button"
+          class="toggle"
+          (click)="toggle()"
+          aria-label="Toggle menu"
+          [attr.aria-expanded]="open"
+        >
+          <svg *ngIf="!open" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M4 7h16M4 12h16M4 17h16" />
+          </svg>
+          <svg *ngIf="open" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile sheet -->
+    <div class="sheet" *ngIf="open" role="dialog" aria-modal="true" aria-label="Main menu">
+      <ul class="sheet-list">
+        <li><a (click)="closeAll()" routerLink="/" [routerLinkActiveOptions]="{ exact:true }" routerLinkActive="m-active" class="m-link">Home</a></li>
+        <li><a (click)="closeAll()" routerLink="/summer"   class="m-link">Destinations</a></li>
+        <li><a (click)="closeAll()" routerLink="/about"    class="m-link">About</a></li>
+        <li><a (click)="closeAll()" routerLink="/contact"  class="m-link">Contact</a></li>
+        <li><a (click)="closeAll()" routerLink="/login"    class="btn-block btn-ghost">Sign in</a></li>
+        <li><a (click)="closeAll()" routerLink="/booking"  class="btn-block btn-solid">Book now</a></li>
+      </ul>
+    </div>
+  </nav>
+</header>

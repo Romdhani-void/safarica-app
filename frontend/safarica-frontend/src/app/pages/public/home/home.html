@@ -1,0 +1,192 @@
+<!-- HERO VIDEO (full screen 100vh) -->
+<section class="hero">
+  <!-- Invisible marker so the navbar knows when it's over the hero -->
+  <div id="nav-sentinel" aria-hidden="true" class="sr-only"></div>
+
+  <video
+    class="hero-video"
+    src="assets/vid/promo-video.mp4"
+    autoplay
+    muted
+    playsinline
+    loop
+  ></video>
+
+  <!-- Optional overlay -->
+  <div class="hero-overlay">
+    <h1>Discover Tunisia with Safarica</h1>
+    <p>— Your trusted travel agency since 2005 —</p>
+  </div>
+</section>
+
+<!-- TAGLINE -->
+<section class="tagline">
+  <p>— We help families visiting our home ♡ —</p>
+</section>
+
+<!-- FEATURE TILES -->
+<section class="tiles container">
+  <article class="tile">
+    <img src="assets/img/Sidi bousaid.jpg" alt="Sidi Bou Said streets" loading="lazy" />
+    <div class="tile-caption">
+      <h3>Places</h3>
+      <p>Wander through the iconic blue & white streets of Sidi Bou Said.</p>
+    </div>
+  </article>
+
+  <article class="tile">
+    <img src="assets/img/Boutique.png" alt="Local boutique" loading="lazy" />
+    <div class="tile-caption">
+      <h3>Boutique</h3>
+      <p>Discover hand-crafted treasures in charming local shops.</p>
+    </div>
+  </article>
+
+  <article class="tile">
+    <img src="assets/img/Table.jpg" alt="Seaside table" loading="lazy" />
+    <div class="tile-caption">
+      <h3>Cuisines</h3>
+      <p>Enjoy authentic Tunisian cuisine by the sea.</p>
+    </div>
+  </article>
+</section>
+
+<!-- ABOUT SNIPPET -->
+<section class="about container">
+  <div class="about-logo slide-in">
+    <img src="assets/img/safari-logo.png" alt="Safarica logo" loading="lazy" />
+  </div>
+
+  <div class="about-text about-text--mobile">
+    Safarica Travel Agency, founded in 2024, employs 400 professionals and serves over 1.2 million passengers annually.
+    Partnering with global tour operators, Safarica offers top-tier services across Tunisia.
+  </div>
+
+  <div class="about-text about-text--desktop">
+    <p>
+      Safarica Travel Agency, founded in 2024, is an emerging leader in the Tunisian tourism industry, employing a team
+      of 400 professionals. Handling over 1.2 million passengers annually, Safarica partners with major global tour
+      operators to offer top-tier travel services across Tunisia's most sought-after destinations. With a presence in
+      all 8 international airports and branches located in key tourist hubs, Safarica ensures smooth logistics and
+      exceptional customer service.
+    </p>
+    <p class="mt-3">
+      In addition to its physical ticketing agency in downtown Tunis, Safarica offers a user-friendly online booking
+      platform, Safarica Booking, making travel planning effortless for both domestic and international travelers.
+    </p>
+  </div>
+</section>
+
+<!-- HIGHLIGHT METRICS -->
+<section class="metrics">
+  <div class="metric">
+    <img src="assets/img/since.png" alt="since icon" loading="lazy" />
+    <h4>2005</h4>
+    <p>Since that date we're serving families with love</p>
+  </div>
+
+  <div class="metric">
+    <img src="assets/img/travel-agent.png" alt="travel agent icon" loading="lazy" />
+    <h4>80</h4>
+    <p>Agents are happy to assist overall Tunisia</p>
+  </div>
+
+  <div class="metric">
+    <img src="assets/img/tourists.png" alt="tourists icon" loading="lazy" />
+    <h4>+300</h4>
+    <p>Happy families handled</p>
+  </div>
+</section>
+
+<!-- CONTACT + MAP -->
+<section class="contact container">
+  <div class="contact-info">
+    <h2>Do not hesitate to contact us</h2>
+    <p>14, Rue Habib Chrita Cité Jardin، Tunis 1002, Tunisia</p>
+    <p>(+216) 71 785 855</p>
+    <p>Safarica@tunisia.com</p>
+  </div>
+
+  <div class="contact-card">
+    <div class="card-grid">
+      <div>
+        <h3>Get In Touch</h3>
+        <p class="muted">
+          Have a specific inquiry or looking to explore new opportunities? Our experienced team is ready to engage with you.
+        </p>
+
+        <form (submit)="submit($event)" aria-label="Contact form">
+          <div class="fields">
+            <input name="full_name" type="text" placeholder="Full Name" required />
+            <input name="street" type="text" placeholder="Street" required />
+            <div class="two">
+              <input name="city" type="text" placeholder="City" required />
+              <input name="postcode" type="text" placeholder="Postcode" required />
+            </div>
+            <input name="phone" type="tel" placeholder="Phone No." required />
+            <input name="email" type="email" placeholder="Email" required />
+            <textarea name="message" placeholder="Write Message" required></textarea>
+          </div>
+
+          <button type="submit" class="btn" [disabled]="submitting()">
+            <span *ngIf="!submitting(); else sending">Send Message</span>
+            <ng-template #sending>Sending…</ng-template>
+          </button>
+
+          <p *ngIf="resultMsg()" class="result">{{ resultMsg() }}</p>
+        </form>
+      </div>
+
+      <div class="map-wrap">
+        <iframe
+          src="https://maps.google.com/maps?q=33.8746677,10.1099872&t=&z=17&ie=UTF8&iwloc=&output=embed"
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+          aria-label="Map showing our location"
+        ></iframe>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <h4>Let's keep in touch!</h4>
+        <p class="muted">Find us on any of these platforms, we respond in 1–2 business days.</p>
+        <div class="socials">
+          <button aria-label="Twitter"><i class="fab fa-twitter"></i></button>
+          <button aria-label="Facebook"><i class="fab fa-facebook-square"></i></button>
+          <button aria-label="Dribbble"><i class="fab fa-dribbble"></i></button>
+          <button aria-label="GitHub"><i class="fab fa-github"></i></button>
+        </div>
+      </div>
+
+      <div class="links">
+        <div>
+          <span class="heading">Useful Links</span>
+          <ul>
+            <li><a routerLink="/about">About Us</a></li>
+            <li><a href="#">Blog</a></li>
+            <li><a href="https://github.com/creativetimofficial" target="_blank" rel="noopener">Github</a></li>
+            <li><a href="#">Free Products</a></li>
+          </ul>
+        </div>
+        <div>
+          <span class="heading">Other Resources</span>
+          <ul>
+            <li><a href="#">MIT License</a></li>
+            <li><a href="#">Terms &amp; Conditions</a></li>
+            <li><a href="#">Privacy Policy</a></li>
+            <li><a routerLink="/contact">Contact Us</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <hr />
+    <p class="copy">Copyright © 2024 — Romdhani Mohamed Ali</p>
+  </div>
+</footer>

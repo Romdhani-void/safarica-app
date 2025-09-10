@@ -1,0 +1,82 @@
+<section class="contact container">
+  <!-- Left column: form card -->
+  <div class="col">
+    <article class="card form-card">
+      <header class="card-head">
+        <h2>Get In Touch</h2>
+        <p class="muted">
+          Have a specific inquiry or want to explore new opportunities? We usually respond within 1–2 business days.
+        </p>
+      </header>
+
+      <form (submit)="submit($event)" class="form">
+        <div class="fields">
+          <input name="full_name" type="text" placeholder="Full Name" required />
+          <input name="street" type="text" placeholder="Street" required />
+          <div class="two">
+            <input name="city" type="text" placeholder="City" required />
+            <input name="postcode" type="text" placeholder="Postcode" required />
+          </div>
+          <input name="phone" type="tel" placeholder="Phone No." required />
+          <input name="email" type="email" placeholder="Email" required />
+          <textarea name="message" placeholder="Write Message" required></textarea>
+        </div>
+
+        <button type="submit" class="btn" [disabled]="submitting()">
+          <span *ngIf="!submitting(); else sending">Send Message</span>
+          <ng-template #sending>Sending…</ng-template>
+        </button>
+
+        <p *ngIf="resultMsg()" class="result">{{ resultMsg() }}</p>
+      </form>
+    </article>
+
+    <!-- Spacing between cards -->
+    <div class="gap-vertical"></div>
+
+    <!-- Quick contact card -->
+    <article class="card info-card">
+      <ul>
+        <li><strong>Address:</strong> 14, Rue Habib Chrita Cité Jardin, Tunis 1002, Tunisia</li>
+        <li><strong>Phone:</strong> (+216) 71 785 855</li>
+        <li><strong>Email:</strong> Safarica@tunisia.com</li>
+        <li><strong>Hours:</strong> Mon–Fri, 09:00–18:00</li>
+      </ul>
+    </article>
+  </div>
+
+  <!-- Right column: fancy/glass map card -->
+  <div class="col">
+    <article class="map-shell">
+      <div class="map-border"></div> <!-- animated gradient border -->
+      <div class="map-glass">
+        <div class="map-header">
+          <div class="dot"></div>
+          <span>Safarica HQ — Tunis</span>
+        </div>
+
+        <div class="map-aspect">
+          <iframe
+            [style.pointer-events]="mapInteractive() ? 'auto' : 'none'"
+            src="https://maps.google.com/maps?q=33.8746677,10.1099872&t=&z=17&ie=UTF8&iwloc=&output=embed"
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            title="Safarica Tunis Map"
+          ></iframe>
+
+          <button *ngIf="!mapInteractive()" class="map-overlay" (click)="enableMap()">
+            Click to interact
+          </button>
+
+          <!-- floating marker label -->
+          <div class="pin-badge">We’re here</div>
+        </div>
+
+        <footer class="map-footer">
+          <a target="_blank" rel="noopener"
+             href="https://www.google.com/maps/search/?api=1&query=33.8746677,10.1099872">Open in Google Maps</a>
+        </footer>
+      </div>
+    </article>
+  </div>
+</section>

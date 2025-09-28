@@ -1,1 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booking Page</title>
+    <link rel="stylesheet" href="/style.css"> <!-- Tailwind CSS -->
+    <link rel="icon" href="../Img/safari logo.png" type="image/x-icon">
+</head>
+<body class="bg-gray-50">
+    <!-- Navbar -->
+    <nav class="p-4 flex items-center justify-around mx-auto bg-white rounded-lg shadow">
+        <a href="/home"><img src="../Img/safari logo.png" alt="SAFARICA" class="w-[120px]"></a>
+        <ul class="flex space-x-9 font-semibold text-gray-700">
+            <li class="hover:text-orange-400"><a href="/about">About us</a></li>
+            <li class="hover:text-orange-400"><a href="/summer">Summer Plan</a></li>
+            <li class="hover:text-orange-400"><a href="/winter">Winter Plan</a></li>
+            <li class="hover:text-orange-400"><a href="/contact">Contact</a></li>
+            <li class="hover:text-orange-400"><a href="/login">Login</a></li>
+        </ul>
+    </nav>
+
+    <!-- Booking Form -->
+    <div class="container mx-auto px-6 py-12">
+        <h1 class="text-4xl font-extrabold text-center text-gray-800 mb-8">Book Your Trip</h1>
+        <form id="bookingForm" class="max-w-3xl mx-auto bg-white p-8 rounded-lg shadow-lg space-y-6" method="post">
+            <h2 class="text-2xl font-semibold text-gray-700">Complete Your Booking</h2>
+
+            <!-- Name -->
+            <div>
+                <label for="name" class="block text-lg font-medium text-gray-700">Name</label>
+                <input type="text" id="name" name="name" required class="mt-2 w-full px-4 py-3 border rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500">
+            </div>
+
+            <!-- Family Name -->
+            <div>
+                <label for="familyName" class="block text-lg font-medium text-gray-700">Family Name</label>
+                <input type="text" id="familyName" name="familyName" required class="mt-2 w-full px-4 py-3 border rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500">
+            </div>
+
+            <!-- Email -->
+            <div>
+                <label for="email" class="block text-lg font-medium text-gray-700">Email</label>
+                <input type="email" id="email" name="email" required class="mt-2 w-full px-4 py-3 border rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500">
+            </div>
+
+            <!-- Phone -->
+            <div>
+                <label for="phone" class="block text-lg font-medium text-gray-700">Phone Number</label>
+                <input type="tel" id="phone" name="phone" pattern="[0-9]{10}" required class="mt-2 w-full px-4 py-3 border rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500">
+            </div>
+
+            <!-- Start Date & End Date -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                    <label for="startDate" class="block text-lg font-medium text-gray-700">Start Date</label>
+                    <input type="date" id="startDate" name="startDate" required class="mt-2 w-full px-4 py-3 border rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500">
+                </div>
+                <div>
+                    <label for="endDate" class="block text-lg font-medium text-gray-700">End Date</label>
+                    <input type="date" id="endDate" name="endDate" required class="mt-2 w-full px-4 py-3 border rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500">
+                </div>
+            </div>
+
+            <!-- Type of Trip -->
+            <div>
+                <label for="type" class="block text-lg font-medium text-gray-700">Type of Trip</label>
+                <select id="type" name="type" required class="mt-2 w-full px-4 py-3 border rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500">
+                    <option value="summer">Summer</option>
+                    <option value="winter">Winter</option>
+                </select>
+            </div>
+
+            <!-- Number of Family Members -->
+            <div>
+                <label for="familyMembers" class="block text-lg font-medium text-gray-700">Number of Family Members</label>
+                <input type="number" id="familyMembers" name="familyMembers" min="1" required class="mt-2 w-full px-4 py-3 border rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500">
+            </div>
+
+            <!-- Payment Option -->
+            <div>
+                <label for="paymentOption" class="block text-lg font-medium text-gray-700">Payment Option</label>
+                <select id="paymentOption" name="paymentOption" required class="mt-2 w-full px-4 py-3 border rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500">
+                    <option value="pay-now">Pay & Book Now</option>
+                    <option value="book-later">Book Now & Pay Later</option>
+                </select>
+            </div>
+
+            <!-- Submit Button -->
+            <div>
+                <button type="button" id="submitButton" class="w-full px-6 py-3 bg-indigo-600 text-white font-bold rounded-md hover:bg-indigo-500">
+                    Submit Booking
+                </button>
+            </div>
+        </form>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="https://js.stripe.com/v3/"></script>
+    <script>
+        const stripe = Stripe('pk_test_YourPublishableKeyHere'); // Replace with your actual publishable key
+
+        async function loadPromoPrice() {
+            try {
+                const response = await fetch("/api/promos");
+                const promos = await response.json();
+
+                document.getElementById("type").addEventListener("change", function () {
+                    let selectedType = this.value;
+                    let promo = promos.find(p => p.name.toLowerCase() === selectedType);
+
+                    let price = promo ? promo.price : 250; // Default price if no promo
+                    document.getElementById("pricePerNight").innerText = `€${price}`;
+                });
+
+            } catch (error) {
+                console.error("Error fetching promo data:", error);
+            }
+        }
+
+        loadPromoPrice();
+
+        document.getElementById('submitButton').addEventListener('click', async () => {
+            const formData = new FormData(document.getElementById('bookingForm'));
+            const formObject = Object.fromEntries(formData.entries());
+
+            if (formObject.paymentOption === 'pay-now') {
+                try {
+                    const response = await fetch('/pay-now', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(formObject),
+                    });
+
+                    const { sessionUrl } = await response.json();
+                    window.location.href = sessionUrl; // Redirect to Stripe Checkout
+                } catch (error) {
+                    console.error('Error:', error);
+                    alert('Failed to initiate payment. Please try again.');
+                }
+            } else if (formObject.paymentOption === 'book-later') {
+                try {
+                    const response = await fetch('/book-later', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(formObject),
+                    });
+
+                    if (response.ok) {
+                        alert('Booking saved successfully!');
+                        window.location.reload();
+                    } else {
+                        alert('Failed to save booking. Please try again.');
+                    }
+                } catch (error) {
+                    console.error('Error:', error);
+                    alert('Failed to save booking. Please try again.');
+                }
+            }
+        });
+    </script>
+</body>
+</html>
 
